@@ -70,6 +70,9 @@ function T = objects2tablerow(vars)
                 end
                 sections{n} = objects2tablerow(containers.Map(keys, vars(var_names{i})));
         
+            otherwise
+                error('ValueError: Object class not supported')
+
         end
     end
     T = [sections{:}];
