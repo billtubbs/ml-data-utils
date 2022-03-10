@@ -29,49 +29,48 @@ function T = objects2tablerow(vars)
     n_vars = numel(var_names);
     sections = {};
     n = 0;
-    for i=1:n_vars
-        switch class(vars(var_names{i}))
-            
-            case 'double'
-                n = n + 1;
-                if numel(vars(var_names{i})) == 1
-                    sections{n} = table(vars(var_names{i}), 'VariableNames', var_names(i));
-                else
-                    sections{n} = array2tablerow(vars(var_names{i}), var_names{i});
-                end
-            
-            case 'char'
-                n = n + 1;
-                sections{n} = table({vars(var_names{i})}, 'VariableNames', var_names(i));
-            
-            case 'string'
-                n = n + 1;
-                if numel(vars(var_names{i})) == 1
-                    sections{n} = table(vars(var_names{i}), 'VariableNames', var_names(i));
-                else
-                    sections{n} = array2tablerow(vars(var_names{i}), var_names{i});
-                end
-            
-            case 'struct'
-                n = n + 1;
-                keys = fieldnames(vars(var_names{i}));
-                n_items = numel(keys);
-                for j = 1:n_items
-                    keys{j} = sprintf('%s_%s', var_names{i}, keys{j});
-                end
-                sections{n} = objects2tablerow(containers.Map(keys, struct2cell(vars(var_names{i}))));
-            
-            case 'cell'
-                n = n + 1;
-                n_items = numel(vars(var_names{i}));
-                keys = cell(1, n_items);
-                for j = 1:n_items
-                    keys{j} = sprintf('%s_%d', var_names{i} , j);
-                end
-                sections{n} = objects2tablerow(containers.Map(keys, vars(var_names{i})));
-        
-            otherwise
-                error('ValueError: Object class not supported')
+    for i = 1:n_vars
+
+        if isnumeric(vars(var_names{i}))
+            n = n + 1;
+            if numel(vars(var_names{i})) == 1
+                sections{n} = table(vars(var_names{i}), 'VariableNames', var_names(i));
+            else
+                sections{n} = array2tablerow(vars(var_names{i}), var_names{i});
+            end
+
+        elseif ischar(vars(var_names{i}))
+            n = n + 1;
+            sections{n} = table({vars(var_names{i})}, 'VariableNames', var_names(i));
+
+        elseif isstring(vars(var_names{i}))
+            n = n + 1;
+            if numel(vars(var_names{i})) == 1
+                sections{n} = table(vars(var_names{i}), 'VariableNames', var_names(i));
+            else
+                sections{n} = array2tablerow(vars(var_names{i}), var_names{i});
+            end
+
+        elseif isstruct(vars(var_names{i}))
+            n = n + 1;
+            keys = fieldnames(vars(var_names{i}));
+            n_items = numel(keys);
+            for j = 1:n_items
+                keys{j} = sprintf('%s_%s', var_names{i}, keys{j});
+            end
+            sections{n} = objects2tablerow(containers.Map(keys, struct2cell(vars(var_names{i}))));
+
+        elseif iscell(vars(var_names{i}))
+            n = n + 1;
+            n_items = numel(vars(var_names{i}));
+            keys = cell(1, n_items);
+            for j = 1:n_items
+                keys{j} = sprintf('%s_%d', var_names{i} , j);
+            end
+            sections{n} = objects2tablerow(containers.Map(keys, vars(var_names{i})));
+
+        else
+            error('ValueError: Object class not supported')
 
         end
     end
