@@ -1,9 +1,73 @@
 # ml-data-utils
-MATLAB functions to facilitate handling and saving data from automated experiments.
+MATLAB functions to facilitate handling and saving diverse data during automated calculations or experiments.
 
-These are simple but useful tools to make saving experiment results and meta-data from a MATLAB script easier.
+## Examples
 
-## Example
+The [array2table_with_name](array2table_with_name.m) function converts a matrix to a table with custom column labels.
+
+```matlab
+X = reshape(1:6, 3, 2);
+array2table_with_name(X.^2, 'Xsq')
+```
+
+```text
+ans =
+
+  3×2 table
+
+    Xsq1    Xsq2
+    ____    ____
+
+     1       16 
+     4       25 
+     9       36 
+
+```
+
+This is similar to but more concise than the built-in function `array2table(X.^2, 'VariableNames', {'Xsq1', 'Xsq2'})`.
+
+The [array2tablerow](array2tablerow.m) function converts an array into a table with one row by 'flattening' the elements, and adds column labels with subscripts to indicate the array indices.
+
+```matlab
+array2tablerow(X.^2, 'Xsq')
+```
+
+```text
+ans =
+
+  1×6 table
+
+    Xsq_1_1    Xsq_2_1    Xsq_3_1    Xsq_1_2    Xsq_2_2    Xsq_3_2
+    _______    _______    _______    _______    _______    _______
+
+       1          4          9         16         25         36   
+
+```
+
+The [objects2tablerow](objects2tablerow.m) converts a Map container of MATLAB variables into a single table row. This is useful when iteratively recording a collection of variables or parameter values. A variety of MATLAB variable classes are supported.
+
+```matlab
+person.name = "Amy";
+person.age = int16(5);
+person.siblings = {'Peter', 'Fred'};
+data = [0.5377  1.8339 -2.2588];
+vars = containers.Map({'Person', 'Data'}, {person, data});
+T = objects2tablerow(vars)
+```
+
+```text
+T =
+
+  1×7 table
+
+    Data_1    Data_2    Data_3     Person_age    Person_name    Person_siblings_1    Person_siblings_2
+    ______    ______    _______    __________    ___________    _________________    _________________
+
+    0.5377    1.8339    -2.2588        5            "Amy"           {'Peter'}            {'Fred'}     
+
+```
+
+## Complete use-case example
 
 ```matlab
 % Demonstration of how to use objects2tablerow function
