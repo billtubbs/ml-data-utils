@@ -3,7 +3,7 @@ function T = objects2tablerow(vars)
 % variables (vars) into a one-row table T using the keys
 % of the Map as column headings. Handles objects of the 
 % following classes:
-%  - double (scalars or arrays)
+%  - numeric (scalars and arrays)
 %  - char
 %  - string
 %  - string array
@@ -11,18 +11,21 @@ function T = objects2tablerow(vars)
 %  - cell arrays
 %
 % Example:
-% >> sibs = {"Peter", "Fred"};
-% >> vars = containers.Map({'Name', 'Age', 'Siblings'}, {"Amy", 5, sibs});
+% >> person.name = "Amy";
+% >> person.age = int16(5);
+% >> person.siblings = {'Peter', 'Fred'};
+% >> data = [0.5377  1.8339 -2.2588];
+% >> vars = containers.Map({'Person', 'Data'}, {person, data});
 % >> T = objects2tablerow(vars)
 % 
 % T =
 % 
-%   1×4 table
+%   1×7 table
 % 
-%     Age    Name     Siblings_1    Siblings_2
-%     ___    _____    __________    __________
+%     Data_1    Data_2    Data_3     Person_age    Person_name    Person_siblings_1    Person_siblings_2
+%     ______    ______    _______    __________    ___________    _________________    _________________
 % 
-%      5     "Amy"     "Peter"        "Fred"  
+%     0.5377    1.8339    -2.2588        5            "Amy"           {'Peter'}            {'Fred'}     
 % 
 
     var_names = vars.keys;

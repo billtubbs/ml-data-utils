@@ -63,6 +63,6 @@ function T = array2tablerow(X, label)
 
         end
         T = array2table(reshape(X,1,[]), 'VariableNames', col_names);
-        
+
     end
 end
