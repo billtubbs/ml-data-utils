@@ -1,5 +1,5 @@
 # ml-data-utils
-MATLAB functions to facilitate handling and saving diverse data during automated calculations or experiments.
+MATLAB functions to facilitate handling and saving diverse data (variables, parameters, etc.) during automated calculations or experiments in one large CSV file for subsequent analysis.
 
 ## Examples
 
