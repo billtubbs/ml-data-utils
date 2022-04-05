@@ -67,7 +67,7 @@ T =
 
 ```
 
-## Complete use-case example
+## Use case example for objects2tablerow
 
 ```matlab
 % Demonstration of how to use objects2tablerow function
@@ -131,3 +131,45 @@ ans =
     {'Experiment 6'}    6     912.9       2           20   
 
 ```
+
+## Automating Simulink simulations
+
+This example shows how you can run Simulink model simulations from a Matlab
+script and capture the results as a table and/or csv file.
+
+```matlab
+sim_model = "sim_test_model";
+nT = 15;  % number of samples
+Ts = 0.2;  % sample period (set Simulink 'to workspace' blocks to sample at Ts
+
+% Prepare simulation inputs
+t = Ts*(0:nT)';  % time vector
+u = zeros(nT,1);
+u(t > 1) = 1;  % input signal
+
+simin.u = [t u];  % make this a workspace input in Simulink
+sim_results = run_simulation(sim_model, t, 'sim_result.csv');
+
+head(sim_results)
+```
+
+Output:
+```text
+
+ans =
+
+  8×4 table
+
+     t      y1      y2      y3 
+    ___    ____    ____    ____
+
+      0       0       0       0
+    0.2       0       0       0
+    0.4       0       0       0
+    0.6       0       0       0
+    0.8       0       0       0
+      1       0       0       0
+    1.2     0.1     0.1     0.1
+    1.4    0.19    0.19    0.19
+```
+
