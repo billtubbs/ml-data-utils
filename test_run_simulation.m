@@ -15,6 +15,8 @@ sim_results = run_simulation(sim_model, t);
 assert(all(sim_results{:, 't'} == t))
 assert(all(sim_results{:, 'y1'} == sim_results{:, 'y2'}))
 assert(all(sim_results{:, 'y1'} == sim_results{:, 'y3'}))
+assert(all(sim_results{:, {'Y_1', 'Y_2', 'Y_3'}} == ...
+    sim_results{:, {'y1', 'y2', 'y3'}}, [1 2]));
 
 % Repeat with saving to csv file
 filename = 'sim_results_test.csv';
