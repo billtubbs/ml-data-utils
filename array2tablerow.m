@@ -29,7 +29,11 @@ function T = array2tablerow(X, label)
 % 
 
     if nargin == 1
+        % Use name of first argument if it has one
         label = inputname(1);
+        if isempty(label)
+            error("ValueError: Provide label for array.");
+        end
     end
     if isscalar(X)
         T = array2table(X, 'VariableNames', {label});
@@ -43,11 +47,11 @@ function T = array2tablerow(X, label)
                 col_names = cell(1, n);
                 if ismember(1, size(X))
                     j = find(size(X) ~= 1);
-                    for i=1:n
+                    for i = 1:n
                         col_names{i} = sprintf('%s_%d', label, ind(i, j));
                     end
                 else
-                    for i=1:n
+                    for i = 1:n
                         col_names{i} = sprintf('%s_%d_%d', label, ind(i,:));
                     end
                 end
@@ -57,7 +61,7 @@ function T = array2tablerow(X, label)
                 ind = [R' C' D'];
                 n = size(ind, 1);
                 col_names = cell(1, n);
-                for i=1:n
+                for i = 1:n
                     col_names{i} = sprintf('%s_%d_%d_%d', label, ind(i,:));
                 end
 

@@ -72,6 +72,15 @@ function T = objects2tablerow(vars)
             end
             sections{n} = objects2tablerow(containers.Map(keys, vars(var_names{i})));
 
+        elseif istable(vars(var_names{i}))
+            n = n + 1;
+            n_items = numel(vars(var_names{i}));
+            keys = cell(1, n_items);
+            for j = 1:n_items
+                keys{j} = sprintf('%s_%d', var_names{i} , j);
+            end
+            sections{n} = objects2tablerow(containers.Map(keys, vars(var_names{i})));
+
         else
             error('ValueError: Object class not supported')
 
