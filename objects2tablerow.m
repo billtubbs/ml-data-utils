@@ -34,7 +34,7 @@ function T = objects2tablerow(vars)
     n = 0;
     for i = 1:n_vars
 
-        if isnumeric(vars(var_names{i}))
+        if isnumeric(vars(var_names{i})) || islogical(vars(var_names{i}))
             n = n + 1;
             if numel(vars(var_names{i})) == 1
                 sections{n} = table(vars(var_names{i}), 'VariableNames', var_names(i));
