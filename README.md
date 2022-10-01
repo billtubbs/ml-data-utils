@@ -135,7 +135,8 @@ ans =
 ## Automating Simulink simulations
 
 This example shows how you can run Simulink model simulations from a Matlab
-script and capture the results as a table and/or csv file.
+script and capture the various types of simulation outputs as a table and/or 
+csv file.
 
 ```matlab
 sim_model = "sim_test_model";
@@ -158,18 +159,18 @@ Output:
 
 ans =
 
-  8×4 table
+  8×7 table
 
-     t      y1      y2      y3 
-    ___    ____    ____    ____
+     t     Y_1     Y_2     Y_3      y1      y2      y3 
+    ___    ____    ____    ____    ____    ____    ____
 
-      0       0       0       0
-    0.2       0       0       0
-    0.4       0       0       0
-    0.6       0       0       0
-    0.8       0       0       0
-      1       0       0       0
-    1.2     0.1     0.1     0.1
-    1.4    0.19    0.19    0.19
+      0       0       0       0       0       0       0
+    0.2       0       0       0       0       0       0
+    0.4       0       0       0       0       0       0
+    0.6       0       0       0       0       0       0
+    0.8       0       0       0       0       0       0
+      1       0       0       0       0       0       0
+    1.2     0.1     0.1     0.1     0.1     0.1     0.1
+    1.4    0.19    0.19    0.19    0.19    0.19    0.19
 ```
 
