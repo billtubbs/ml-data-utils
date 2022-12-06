@@ -24,7 +24,7 @@ function sim_results = run_simulation(sim_model, t, filename)
 
     % Run Simulink simulation
     assert(t(1) == 0)
-    sim_out = sim(sim_model, 'StartTime', '0', 'StopTime', string(t(end)));
+    sim_out = sim(sim_model, "StartTime", "0", "StopTime", string(t(end)));
 
     % Convert results to table
     sim_results = convert_simout_2_table(sim_out, t, false);
